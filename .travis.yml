@@ -1,6 +1,10 @@
 dist: trusty
 sudo: false
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=6ae9c588ff0bf9f1dfa042daab55fd1210fdc8bb34d58f3bf990ef9d0cdabd15
+
 language: node_js
 node_js:
   - stable
@@ -19,8 +23,16 @@ cache:
 install:
   - npm install
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 script:
   # Use Chromium instead of Chrome.
   - export CHROME_BIN=chromium-browser
   - xvfb-run -a npm run test-ci
   - xvfb-run -a npm run e2e-ci
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
