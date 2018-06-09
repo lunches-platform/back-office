@@ -1,11 +1,7 @@
 import { browser, by, element } from 'protractor';
 
-export class AppPage {
-  navigateTo() {
-    return browser.get('/');
-  }
+export const navigate = () => browser.get('/');
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
-  }
-}
+const toolbarTitleSelector = 'body > app-root > bo-nav > mat-sidenav-container > mat-sidenav-content > mat-toolbar > span';
+
+export const getToolbarTitle = () => element(by.css(toolbarTitleSelector)).getText();

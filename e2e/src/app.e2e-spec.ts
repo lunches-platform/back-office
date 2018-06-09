@@ -1,14 +1,9 @@
-import { AppPage } from './app.po';
+import { navigate, getToolbarTitle } from './app.po';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+describe('Back Office Home', () => {
+  beforeEach(navigate);
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
-
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to back-office!');
+  it('Shows title in the toolbar', () => {
+      expect(getToolbarTitle()).toEqual('Application Title');
   });
 });
